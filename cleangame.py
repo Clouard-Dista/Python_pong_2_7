@@ -1,4 +1,5 @@
-import sys, pygame
+
+import pygame
 from pygame.locals import *
 
 from classs import *
@@ -24,18 +25,18 @@ pygame.display.set_caption(titre_fenetre)
 continuer = 1
 
 playeur1 = Playeur(1)
+playeur2 = Playeur(2)
 
+#Chargement et affichage de l'écran d'accueil
+accueil = pygame.image.load(image_fond).convert()
+accueil = pygame.transform.scale(accueil, (900,500))
 while continuer:	
-	#Chargement et affichage de l'écran d'accueil
-	accueil = pygame.image.load(image_fond).convert()
-	accueil = pygame.transform.scale(accueil, (900,500))
-	fenetre.blit(accueil, (0,0))
 
 	#Rafraichissement
 	pygame.display.flip()
 
 	#Limitation de vitesse de la boucle
-	pygame.time.Clock().tick(30)
+	pygame.time.Clock().tick(120)
 
 	for event in pygame.event.get():
 		#Si l'utilisateur quitte variable générale à 0 pour fermer la fenêtre
@@ -53,4 +54,7 @@ while continuer:
 			elif event.key == K_DOWN:
 				playeur1.moveKeyboard(-1)
 
-	fenetre.blit(playeur1.sprite, (playeur1.y, playeur1.x)) 
+
+	fenetre.blit(accueil, (0,0))
+	fenetre.blit(playeur1.sprite, (playeur1.x, playeur1.y))
+	fenetre.blit(playeur2.sprite, (playeur2.x, playeur2.y))
