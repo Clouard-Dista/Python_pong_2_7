@@ -26,6 +26,7 @@ continuer = 1
 
 playeur1 = Playeur(1)
 playeur2 = Playeur(2)
+ball = Ball()
 
 #Chargement et affichage de l'écran d'accueil
 accueil = pygame.image.load(image_fond).convert()
@@ -37,6 +38,8 @@ while continuer:
 
 	#Limitation de vitesse de la boucle
 	pygame.time.Clock().tick(120)
+
+	inputPlayeur =[0,0]
 
 	for event in pygame.event.get():
 		#Si l'utilisateur quitte variable générale à 0 pour fermer la fenêtre
@@ -50,10 +53,15 @@ while continuer:
 				continuer = 0
 			#Touches de déplacement
 			elif event.key == K_UP:
-				playeur1.moveKeyboard(1)
+				inputPlayeur[0] -= 1;
 			elif event.key == K_DOWN:
-				playeur1.moveKeyboard(-1)
+				inputPlayeur[0] = 1;
 
+	ball.colli(playeur1,playeur2)
+
+
+	playeur1.moveKeyboard(inputPlayeur[0])
+	playeur2.moveKeyboard(inputPlayeur[1])
 
 	fenetre.blit(accueil, (0,0))
 	fenetre.blit(playeur1.sprite, (playeur1.x, playeur1.y))
