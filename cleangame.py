@@ -61,17 +61,25 @@ while continuer:
 		continuer_jeu = 0
 		continuer = 0
 
-	if keys[pygame.K_n] or keys[pygame.K_b]:
+	if keys[pygame.K_n] or keys[pygame.K_b]or keys[pygame.K_v]:
 		playeur1 = Playeur(1)
 		playeur2 = Playeur(2)
 		ball = Ball(450,250)
-		if keys[pygame.K_b]:
+		if keys[pygame.K_b] or keys[pygame.K_v]:
 			playeur1.bot = True
+			if keys[pygame.K_v]:
+				playeur2.bot = True
 	#Touches de déplacement
-	if keys[pygame.K_UP]:
-		playeur2.moveKeyboard(-1)
-	if keys[pygame.K_DOWN]:
-		playeur2.moveKeyboard(1)
+	if playeur2.bot == True and ball.x > 700 and ball.x + ball.width < playeur2.x:
+		if ball.y > playeur2.y+playeur2.height/2:
+			playeur2.moveKeyboard(1)
+		if ball.y < playeur2.y+playeur2.height/2:
+			playeur2.moveKeyboard(-1)
+	else:
+		if keys[pygame.K_UP]:
+			playeur2.moveKeyboard(-1)
+		if keys[pygame.K_DOWN]:
+			playeur2.moveKeyboard(1)
 
 	if playeur1.bot == True and ball.x < 200 and ball.x > playeur1.x + playeur1.width:
 		if ball.y > playeur1.y+playeur1.height/2:
@@ -87,27 +95,33 @@ while continuer:
 	fenetre.blit(accueil, (0,0))
 	if playeur1.bot == True:
 		bot = font.render("bot", 1, (0,0,0))
-		fenetre.blit(bot, (290,200))
+		fenetre.blit(bot, (270,200))
 	else:
 		playeur1u = font.render("/\\ Z", 1, (0,0,0))
-		fenetre.blit(playeur1u, (280,200))
+		fenetre.blit(playeur1u, (270,200))
 		playeur1d = font.render("\\/ S", 1, (0,0,0))
-		fenetre.blit(playeur1d, (280,260))
+		fenetre.blit(playeur1d, (270,260))
 	score1 = font.render(str(playeur1.score), 1, (0,0,0))
 	fenetre.blit(score1, (275,230))
-
-	playeur1u = font.render("/\\ up arrow", 1, (0,0,0))
-	fenetre.blit(playeur1u, (575,200))
-	playeur1d = font.render("\\/ down arrow", 1, (0,0,0))
-	fenetre.blit(playeur1d, (575,260))
+        
+	if playeur1.bot == True:
+		bot = font.render("bot", 1, (0,0,0))
+		fenetre.blit(bot, (575,200))
+	else:
+		playeur1u = font.render("/\\ up arrow", 1, (0,0,0))
+		fenetre.blit(playeur1u, (575,200))
+		playeur1d = font.render("\\/ down arrow", 1, (0,0,0))
+		fenetre.blit(playeur1d, (575,260))
 	score2 = font.render(str(playeur2.score), 1, (0,0,0))
 	fenetre.blit(score2, (580, 230))
 
 	info1 = font.render("Press N - New game", 1, (0,0,0))
-	fenetre.blit(info1, (350, 410))
+	fenetre.blit(info1, (350, 380))
 	info2 = font.render("Press ecape - Quit the game", 1, (0,0,0))
-	fenetre.blit(info2, (350, 440))
+	fenetre.blit(info2, (350, 410))
 	info3 = font.render("Press B - Bot vs Playeur", 1, (0,0,0))
+	fenetre.blit(info3, (350, 440))
+	info3 = font.render("Press V - Bot vs Bot", 1, (0,0,0))
 	fenetre.blit(info3, (350, 470))
 
 	fenetre.blit(playeur1.sprite, (playeur1.x, playeur1.y))

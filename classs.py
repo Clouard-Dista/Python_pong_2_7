@@ -8,7 +8,6 @@ class Playeur:
 		if typeP == 1:
 			self.y=10
 			self.x = 10
-			self.bot = False
 			self.sprite = pygame.image.load("yellowPlayeur.png").convert_alpha()
 		elif typeP == 2:
 			self.y=10
@@ -16,6 +15,7 @@ class Playeur:
 			self.sprite = pygame.image.load("bluePlayeur.png").convert_alpha()
 		self.height = 90
 		self.width = 45
+		self.bot = False
 		self.score=0
 		self.sprite = pygame.transform.scale(self.sprite, (self.width,self.height))
 	
